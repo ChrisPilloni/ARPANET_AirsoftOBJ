@@ -93,7 +93,7 @@
 
         <section id="header">
             <div class="container">
-                <h1 id="logo"><a href="arpanet.html">ARPANET</a></h1>
+                <h1 id="logo"><a href="index.html">ARPANET</a></h1>
                 <p>Communication System V1</p>
             </div>
         </section>
@@ -141,6 +141,40 @@
     </div>
 
     <div id="modalLogin" class="modal">
+        <div class="modal-contenuto">
+            <span class="chiudi-modal">&times;</span>
+            <h2>Accesso Area Riservata</h2>
+            <p>Inserisci le credenziali per continuare.</p>
+
+            <form id="loginForm">
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Inserisci Password" id="passwordInput" required>
+
+                <button type="submit">CONNECT</button>
+                
+                <p id="messaggioErrore" style="color: red; text-align: center;"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalLogin" class="modal2">
+        <div class="modal-contenuto">
+            <span class="chiudi-modal">&times;</span>
+            <h2>Accesso Area Riservata</h2>
+            <p>Inserisci le credenziali per continuare.</p>
+
+            <form id="loginForm">
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Inserisci Password" id="passwordInput" required>
+
+                <button type="submit">CONNECT</button>
+                
+                <p id="messaggioErrore" style="color: red; text-align: center;"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalLogin" class="modal3">
         <div class="modal-contenuto">
             <span class="chiudi-modal">&times;</span>
             <h2>Accesso Area Riservata</h2>
@@ -216,5 +250,124 @@
             }
         }
     </script>
+
+    <script>//DATABASE TOP SECRET
+        // --- CONFIGURAZIONE ---
+        const PASSWORD_TOPSECRET = "12345"; // Cambia questa
+        const PAGINA_TOPSECRET = "database.html"; // La pagina dove reindirizzare
+        // ---------------------
+
+        // 1. Seleziona gli elementi HTML con cui dobbiamo interagire
+        const modal2 = document.getElementById("modalLogin");
+        const imgTrigger = document.getElementById("immagineTrigger");
+        const closeBtn = document.querySelector(".chiudi-modal");
+        const loginForm = document.getElementById("loginForm");
+        const messaggioErrore2= document.getElementById("messaggioErrore");
+
+        // 2. Logica per APRIRE il modal
+        // Quando l'utente clicca sull'immagine trigger...
+        imgTrigger.onclick = function(event) {
+            // ...impedisci al link 'href="#"' di far saltare la pagina
+            event.preventDefault(); 
+            
+            // ...mostra il modal
+            modal.style.display = "block";
+            messaggioErrore.textContent = ""; // Pulisci eventuali errori vecchi
+        }
+
+        // 3. Logica per CHIUDERE il modal
+        // Quando l'utente clicca sulla 'x', chiudi il modal
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Chiudi il modal anche se l'utente clicca fuori dalla finestra (sull'overlay scuro)
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 4. Logica per il SUBMIT (invio) del Form
+        loginForm.onsubmit = function(event) {
+            
+            // Impedisce al form di ricaricare la pagina
+            event.preventDefault();
+
+            // Prendi i valori inseriti dall'utente
+            const passInserita = document.getElementById("passwordInput").value;
+
+            // Controlla se corrispondono a quelli corretti
+            if (passInserita === PASSWORD_CORRETTA) {
+                // Se sono GIUSTI:
+                alert("Accesso Eseguito! Sarai reindirizzato.");
+                // Reindirizza alla pagina segreta
+                window.location.href = PAGINA_SEGRETA;
+            } else {
+                // Se sono SBAGLIATI:
+                messaggioErrore.textContent = "Credenziali errate. Riprova.";
+            }
+        }
+    </script>
+
+    <script> //2CHAT
+        // --- CONFIGURAZIONE ---
+        const PASSWORD_CHAT2 = "12345"; // Cambia questa
+        const PAGINA_CHAT2 = "chat2.html"; // La pagina dove reindirizzare
+        // ---------------------
+
+        // 1. Seleziona gli elementi HTML con cui dobbiamo interagire
+        const modal3 = document.getElementById("modalLogin");
+        const imgTrigger = document.getElementById("immagineTrigger");
+        const closeBtn = document.querySelector(".chiudi-modal");
+        const loginForm = document.getElementById("loginForm");
+        const messaggioErrore3 = document.getElementById("messaggioErrore");
+
+        // 2. Logica per APRIRE il modal
+        // Quando l'utente clicca sull'immagine trigger...
+        imgTrigger.onclick = function(event) {
+            // ...impedisci al link 'href="#"' di far saltare la pagina
+            event.preventDefault(); 
+            
+            // ...mostra il modal
+            modal.style.display = "block";
+            messaggioErrore.textContent = ""; // Pulisci eventuali errori vecchi
+        }
+
+        // 3. Logica per CHIUDERE il modal
+        // Quando l'utente clicca sulla 'x', chiudi il modal
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Chiudi il modal anche se l'utente clicca fuori dalla finestra (sull'overlay scuro)
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 4. Logica per il SUBMIT (invio) del Form
+        loginForm.onsubmit = function(event) {
+            
+            // Impedisce al form di ricaricare la pagina
+            event.preventDefault();
+
+            // Prendi i valori inseriti dall'utente
+            const passInserita = document.getElementById("passwordInput").value;
+
+            // Controlla se corrispondono a quelli corretti
+            if (passInserita === PASSWORD_CORRETTA) {
+                // Se sono GIUSTI:
+                alert("Accesso Eseguito! Sarai reindirizzato.");
+                // Reindirizza alla pagina segreta
+                window.location.href = PAGINA_SEGRETA;
+            } else {
+                // Se sono SBAGLIATI:
+                messaggioErrore.textContent = "Credenziali errate. Riprova.";
+            }
+        }
+    </script>
+
     </body>
 </html>
