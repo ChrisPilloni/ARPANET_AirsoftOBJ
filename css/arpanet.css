@@ -10,13 +10,13 @@
 @font-face {
 	font-family: 'MGS_chat'; /* Il nome che userai nel CSS */
 	/* Includi solo il file TTF */
-	src: url('../fonts/MGS2MENU.ttf') format('truetype'); 
+	src: url('../fonts/MGS2MENU.TTF') format('truetype'); 
 	font-weight: normal; /* Specifica il peso del font */
 	font-style: normal;  /* Specifica lo stile del font */
 }
 body {
   /* Background settings */
-  background-image: url("immagini/sfondo.png");
+  background-image: url("../Immagini/sfondo.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
