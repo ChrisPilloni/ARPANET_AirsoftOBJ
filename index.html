@@ -104,7 +104,7 @@
                     <div class="col-4 col-6-medium col-12-small">
 
                         <section>
-                            <a href="#" id="immagineTrigger2" class="image featured">
+                            <a href="chat.html" id="immagineTrigger2" class="image featured">
                                 <img src="Immagini/Foto-6-scaled.jpg" alt="" />
                             </a>
                             <header>
@@ -159,59 +159,100 @@
 
 
     <script>
-        // --- CONFIGURAZIONE ---
-        const PASSWORD_CORRETTA = "12345"; // Cambia questa
-        const PAGINA_SEGRETA = "chat.html"; // La pagina dove reindirizzare
-        // ---------------------
+        // --- 1. CONFIGURAZIONE ---
+        // Qui definiamo le password e le pagine per CIASCUN trigger.
+        // La "chiave" (es. "immagineTrigger2") deve corrispondere all'ID
+        // dell'elemento <a> nel tuo HTML.
+        const loginConfigs = {
+            "immagineTrigger2": { // Trigger per 07.11.1966
+                password: "password_giorno_1",    // <-- Cambia questa
+                pagina: "pagina_giorno_1.html", // <-- Cambia questa
+                titolo: "Accesso 07.11.1966"
+            },
+            "immagineTrigger": { // Trigger per 08.11.1966 (il tuo originale)
+                password: "12345",              // <-- Mantenuto il tuo originale
+                pagina: "chat.html",            // <-- Mantenuto il tuo originale
+                titolo: "Accesso 08.11.1966"
+            },
+            "immagineTrigger3": { // Trigger per [TOP SECRET]
+                password: "password_segreta",   // <-- Cambia questa
+                pagina: "pagina_top_secret.html", // <-- Cambia questa
+                titolo: "Accesso Area [TOP SECRET]"
+            }
+        };
 
-        // 1. Seleziona gli elementi HTML con cui dobbiamo interagire
+        // --- 2. SELEZIONE DEGLI ELEMENTI HTML ---
         const modal = document.getElementById("modalLogin");
-        const imgTrigger = document.getElementById("immagineTrigger");
+        const modalTitolo = modal.querySelector("h2"); // Selezioniamo l'h2 del modal
         const closeBtn = document.querySelector(".chiudi-modal");
         const loginForm = document.getElementById("loginForm");
         const messaggioErrore = document.getElementById("messaggioErrore");
 
-        // 2. Logica per APRIRE il modal
-        // Quando l'utente clicca sull'immagine trigger...
-        imgTrigger.onclick = function(event) {
-            // ...impedisci al link 'href="#"' di far saltare la pagina
-            event.preventDefault(); 
-            
-            // ...mostra il modal
-            modal.style.display = "block";
-            messaggioErrore.textContent = ""; // Pulisci eventuali errori vecchi
-        }
+        // --- 3. VARIABILE DI STATO ---
+        // Questa variabile "ricorda" quale immagine è stata cliccata per ultima
+        let triggerAttivo = null;
 
-        // 3. Logica per CHIUDERE il modal
+        // --- 4. LOGICA PER APRIRE IL MODAL (DINAMICA) ---
+        // Usiamo un ciclo per collegare l'evento a TUTTE le immagini definite nella configurazione
+        Object.keys(loginConfigs).forEach(triggerId => {
+            
+            const triggerElement = document.getElementById(triggerId);
+            
+            if (triggerElement) {
+                triggerElement.onclick = function(event) {
+                    event.preventDefault(); // Impedisce al link 'href="#"' di far saltare la pagina
+                    
+                    // 1. RICORDA quale trigger ha aperto il modal
+                    triggerAttivo = triggerId; 
+                    
+                    // 2. PRENDI la configurazione giusta (password, pagina, titolo)
+                    const config = loginConfigs[triggerAttivo];
+                    
+                    // 3. AGGIORNA il titolo del modal dinamicamente
+                    modalTitolo.textContent = config.titolo; 
+                    
+                    // 4. RESETTA e MOSTRA il modal
+                    messaggioErrore.textContent = ""; // Pulisci errori vecchi
+                    loginForm.reset(); // Svuota il campo password
+                    modal.style.display = "block";
+                }
+            }
+        });
+
+        // --- 5. LOGICA PER CHIUDERE IL MODAL (Invariata) ---
         // Quando l'utente clicca sulla 'x', chiudi il modal
         closeBtn.onclick = function() {
             modal.style.display = "none";
         }
 
-        // Chiudi il modal anche se l'utente clicca fuori dalla finestra (sull'overlay scuro)
+        // Chiudi il modal anche se l'utente clicca fuori dalla finestra
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        // 4. Logica per il SUBMIT (invio) del Form
+        // --- 6. LOGICA PER IL SUBMIT (DINAMICA) ---
         loginForm.onsubmit = function(event) {
-            
-            // Impedisce al form di ricaricare la pagina
-            event.preventDefault();
+            event.preventDefault(); // Impedisce al form di ricaricare la pagina
 
-            // Prendi i valori inseriti dall'utente
+            // Se nessun trigger è attivo, non fare nulla (sicurezza)
+            if (!triggerAttivo) return; 
+
+            // Prendi la configurazione corretta basata sul trigger che abbiamo salvato
+            const config = loginConfigs[triggerAttivo];
+            
+            // Prendi la password inserita dall'utente
             const passInserita = document.getElementById("passwordInput").value;
 
-            // Controlla se corrispondono a quelli corretti
-            if (passInserita === PASSWORD_CORRETTA) {
-                // Se sono GIUSTI:
+            // Controlla se la password inserita è UGUALE a quella nella configurazione
+            if (passInserita === config.password) {
+                // Se è GIUSTA:
                 alert("Accesso Eseguito! Sarai reindirizzato.");
-                // Reindirizza alla pagina segreta
-                window.location.href = PAGINA_SEGRETA;
+                // Reindirizza alla pagina specifica per quel trigger
+                window.location.href = config.pagina;
             } else {
-                // Se sono SBAGLIATI:
+                // Se è SBAGLIATA:
                 messaggioErrore.textContent = "Credenziali errate. Riprova.";
             }
         }
