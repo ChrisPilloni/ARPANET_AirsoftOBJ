@@ -209,11 +209,11 @@ input, select, textarea {
 
 	hr {
 		border: 0;
-		border-top: solid 1px #ddd;
+		border-top: solid 1px #000000;
 	}
 
 	blockquote {
-		border-left: solid 0.5em #ddd;
+		border-left: solid 0.5em #000000;
 		padding: 1em 0 1em 2em;
 		font-style: italic;
 	}
@@ -2173,8 +2173,8 @@ input, select, textarea {
 	#footer {
 		position: relative;
 		overflow: hidden;
-		border-top: solid 2px #e5e5e5;
-		background: #f0f0f0;
+		border-top: solid 2px #000000;
+		background: #000000;
 		padding: 6em 0 8em 0;
 	}
 
@@ -2183,7 +2183,7 @@ input, select, textarea {
 		#footer form input[type="password"],
 		#footer form select,
 		#footer form textarea {
-			background: #f7f7f7;
+			background: #000000;
 		}
 
 			#footer form input[type="text"]:focus,
@@ -2191,7 +2191,7 @@ input, select, textarea {
 			#footer form input[type="password"]:focus,
 			#footer form select:focus,
 			#footer form textarea:focus {
-				background: #fff;
+				background: #000000;
 			}
 
 		#footer h2 {
