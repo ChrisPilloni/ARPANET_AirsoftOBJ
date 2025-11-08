@@ -2,7 +2,7 @@
     font-family: 'MGS'; /* Il nome che userai nel CSS */
     
     /* Includi solo il file TTF */
-    src: url('fonts/METAG___.ttf') format('truetype'); 
+    src: url('../fonts/METAG___.TTF') format('truetype'); 
          
     font-weight: normal; /* Specifica il peso del font */
 	font-style: normal;  /* Specifica lo stile del font */
