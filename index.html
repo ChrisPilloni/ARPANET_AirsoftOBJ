@@ -7,85 +7,155 @@
     <link rel="stylesheet" href="css/arpanet.css" />
 
     <style>
-        /* Stile dell'immagine trigger (opzionale, per dare feedback) */
-        #immagineTrigger {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        #immagineTrigger:hover {
-            transform: scale(1.05); /* Leggero zoom al passaggio del mouse */
-        }
+        #immagineTrigger, #immagineTrigger2, #immagineTrigger3 {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+#immagineTrigger:hover, #immagineTrigger2:hover, #immagineTrigger3:hover {
+    transform: scale(1.05); /* Leggero zoom al passaggio del mouse */
+}
 
-        /* L'overlay scuro di sfondo */
-        .modal {
-            display: none; /* Nascosto di default */
-            position: fixed; /* Rimane fermo anche se scorri la pagina */
-            z-index: 1000; /* Sta sopra a tutto il resto */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; /* Abilita lo scroll se serve */
-            background-color: rgba(0, 0, 0, 0.6); /* Sfondo nero semi-trasparente */
-        }
+/* L'overlay scuro di sfondo (invariato) */
+.modal {
+    display: none; /* Nascosto di default */
+    position: fixed; /* Rimane fermo anche se scorri la pagina */
+    z-index: 1000; /* Sta sopra a tutto il resto */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Abilita lo scroll se serve */
+    background-color: rgba(0, 0, 0, 0.6); /* Sfondo nero semi-trasparente */
+}
 
-        /* Il contenuto/box del modal */
-        .modal-contenuto {
-            background-color: #fefefe;
-            margin: 15% auto; /* Centrato (15% dall'alto) */
-            padding: 25px;
-            border: 1px solid #888;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 400px; /* Larghezza massima */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            /* Aggiungiamo un colore di testo di default per il modal */
-            color: #333; 
-        }
-        
-        .modal-contenuto h2, .modal-contenuto p, .modal-contenuto label {
-            color: #333; /* Forziamo il colore del testo per leggibilità */
-        }
+/* * ===========================================
+ * ▼▼▼ INIZIA LA NUOVA CORNICE "CODEC" ▼▼▼
+ * ===========================================
+ */
 
-        /* Il pulsante per chiudere (la 'x') */
-        .chiudi-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+/* 1. LA CORNICE ESTERNA (verde scuro) */
+.modal-contenuto {
+    /* Layout */
+    margin: 10% auto; /* 10% dall'alto per centrarlo meglio */
+    width: 90%;
+    max-width: 500px; /* Un po' più largo per lo stile */
+    
+    /* Stile "Cornice" (MGS Style) */
+    background-color: #004d00; /* Verde militare scuro */
+    border: 4px solid #00ff00; /* Bordo verde brillante */
+    border-radius: 0; /* ANGOLI VIVI, niente arrotondamento */
+    padding: 12px; /* Spazio tra bordo esterno e interno */
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); /* Bagliore verde */
+    
+    /* Proprietà del font ereditate */
+    color: #00ff00;
+}
 
-        .chiudi-modal:hover,
-        .chiudi-modal:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+/* 2. IL BOX INTERNO (nero) */
+.modal-interno-codec {
+    background: #000; /* Sfondo nero puro per il contenuto */
+    border: 2px solid #00ff00; /* Bordo interno verde */
+    padding: 25px; /* Spazio per il contenuto */
+}
 
-        /* Stile per il form all'interno */
-        #loginForm input[type="text"],
-        #loginForm input[type="password"] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* Importante per il padding */
-        }
+/* 3. IL PULSANTE DI CHIUSURA (la 'x') */
+.chiudi-modal {
+    color: #00ff00; /* Colore verde brillante */
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ff00; /* Leggero bagliore */
+    opacity: 0.7;
+    margin-top: -5px; /* Aggiustamento posizione */
+}
 
-        #loginForm button {
-            background-color: #04AA6D;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
+.chiudi-modal:hover,
+.chiudi-modal:focus {
+    color: #fff; /* Bianco al passaggio del mouse */
+    opacity: 1;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-        #loginForm button:hover {
-            opacity: 0.8;
-        }
+/* 4. TESTO INTERNO (h2, p, label) */
+/* Sovrascrive i colori di default per usare quelli del codec */
+.modal-interno-codec h2, 
+.modal-interno-codec p, 
+.modal-interno-codec label {
+    font-family: 'MGS_chat', 'MGS', monospace; /* USA I TUOI FONT! */
+    color: #00ff00 !important; /* Verde brillante (importante per forzare) */
+    text-align: left; /* Allineamento a sinistra, stile terminale */
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Bagliore testo */
+}
+
+.modal-interno-codec h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+.modal-interno-codec p {
+    font-size: 1em;
+}
+.modal-interno-codec label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* 5. FORM (Input e Bottone) */
+#loginForm input[type="password"] {
+    font-family: 'MGS_chat', monospace;
+    font-size: 1.2em;
+    background-color: #000; /* Sfondo nero */
+    color: #00ff00; /* Testo verde */
+    border: 2px solid #00ff00;
+    border-radius: 0; /* Angoli vivi */
+    padding: 10px;
+    margin-top: 5px;
+    
+    /* Proprietà ereditate da arpanet.css da resettare */
+    width: 100%;
+    box-sizing: border-box; 
+    box-shadow: none; 
+}
+
+#loginForm input[type="password"]:focus {
+    outline: none; /* Niente contorno blu di default */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Bagliore verde al focus */
+    background-color: #050a05; /* Leggero cambio colore */
+}
+
+/* Stile Bottone "CONNECT" */
+#loginForm button {
+    font-family: 'MGS', sans-serif; /* Font MGS principale */
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    
+    background-color: #000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    
+    padding: 14px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#loginForm button:hover {
+    background-color: #00ff00; /* Inverti colori al hover */
+    color: #000;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+    opacity: 1; /* Resetta l'opacità standard */
+}
+
+/* Messaggio di Errore */
+#messaggioErrore {
+    font-family: 'MGS_chat', monospace;
+    color: #ff0000 !important; /* Rosso brillante per l'errore */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+    margin-top: 15px;
+}
     </style>
     </head>
 <body class="homepage is-preload">
