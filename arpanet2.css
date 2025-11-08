@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'MGS'; /* Il nome che userai nel CSS */
+    
+    /* Includi solo il file TTF */
+    src: url('../fonts/METAG___.ttf') format('truetype'); 
+         
+    font-weight: normal; /* Specifica il peso del font */
+	font-style: normal;  /* Specifica lo stile del font */
+}
+@font-face {
+	font-family: 'MGS_chat'; /* Il nome che userai nel CSS */
+	/* Includi solo il file TTF */
+	src: url('../fonts/MGS2MENU.ttf') format('truetype'); 
+	font-weight: normal; /* Specifica il peso del font */
+	font-style: normal;  /* Specifica lo stile del font */
+}
+body {
+  /* Background settings */
+  background-image: url("../immagini/sfondo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+
+  /* Font and color settings */
+  font-family: 'MGS', 'Source Sans Pro', Arial, sans-serif;
+  font-weight: 300;
+  color: #777;
+  line-height: 1.65em;
+  font-size: 15pt;
+
+  /* Other settings */
+  -webkit-text-size-adjust: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>ARPANET</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../css/arpanet.css" />
+
+    <style>
+        /* Stile dell'immagine trigger (opzionale, per dare feedback) */
+        #immagineTrigger {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #immagineTrigger:hover {
+            transform: scale(1.05); /* Leggero zoom al passaggio del mouse */
+        }
+
+        /* L'overlay scuro di sfondo */
+        .modal {
+            display: none; /* Nascosto di default */
+            position: fixed; /* Rimane fermo anche se scorri la pagina */
+            z-index: 1000; /* Sta sopra a tutto il resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Abilita lo scroll se serve */
+            background-color: rgba(0, 0, 0, 0.6); /* Sfondo nero semi-trasparente */
+        }
+
+        /* Il contenuto/box del modal */
+        .modal-contenuto {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centrato (15% dall'alto) */
+            padding: 25px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px; /* Larghezza massima */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            /* Aggiungiamo un colore di testo di default per il modal */
+            color: #333; 
+        }
+        
+        .modal-contenuto h2, .modal-contenuto p, .modal-contenuto label {
+            color: #333; /* Forziamo il colore del testo per leggibilità */
+        }
+
+        /* Il pulsante per chiudere (la 'x') */
+        .chiudi-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .chiudi-modal:hover,
+        .chiudi-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Stile per il form all'interno */
+        #loginForm input[type="text"],
+        #loginForm input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* Importante per il padding */
+        }
+
+        #loginForm button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #loginForm button:hover {
+            opacity: 0.8;
+        }
+    </style>
+    </head>
+<body class="homepage is-preload">
+    <div id="page-wrapper">
+
+        <section id="header">
+            <div class="container">
+                <h1 id="logo"><a href="arpanet.html">ARPANET</a></h1>
+                <p>Communication System V1</p>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div class="row aln-center">
+                    <div class="col-4 col-6-medium col-12-small">
+
+                        <section>
+                            <a href="#" id="immagineTrigger" class="image featured">
+                                <img src="/Immagini/Foto-6-scaled.jpg" alt="" />
+                            </a>
+                            <header>
+                                <h1>07.11.1966</h1>
+                            </header>
+                        </section>
+
+                    </div>
+                    <div class="col-4 col-6-medium col-12-small">
+
+                        <section>
+                            <a href="#" class="image featured"><img src="COBRAS.jpeg" alt="" /></a>
+                            <header>
+                                <h1>08.11.1966</h1>
+                            </header>
+                        </section>
+
+                    </div>
+                    <div class="col-4 col-6-medium col-12-small">
+
+                        <section>
+                            <a href="#" class="image featured"><img src="ben-nicholas-bennicholas-metalgear-shagohod-05.jpg" alt="" /></a>
+                            <header>
+                                <h1>[TOP SECRET]</h1>
+                            </header>
+                        </section>
+
+                    </div>
+                    <div class="col-4 col-6-medium col-12-small">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="modalLogin" class="modal">
+        <div class="modal-contenuto">
+            <span class="chiudi-modal">&times;</span>
+            <h2>Accesso Area Riservata</h2>
+            <p>Inserisci le credenziali per continuare.</p>
+
+            <form id="loginForm">
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Inserisci Password" id="passwordInput" required>
+
+                <button type="submit">CONNECT</button>
+                
+                <p id="messaggioErrore" style="color: red; text-align: center;"></p>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // --- CONFIGURAZIONE ---
+        const PASSWORD_CORRETTA = "12345"; // Cambia questa
+        const PAGINA_SEGRETA = "chat.html"; // La pagina dove reindirizzare
+        // ---------------------
+
+        // 1. Seleziona gli elementi HTML con cui dobbiamo interagire
+        const modal = document.getElementById("modalLogin");
+        const imgTrigger = document.getElementById("immagineTrigger");
+        const closeBtn = document.querySelector(".chiudi-modal");
+        const loginForm = document.getElementById("loginForm");
+        const messaggioErrore = document.getElementById("messaggioErrore");
+
+        // 2. Logica per APRIRE il modal
+        // Quando l'utente clicca sull'immagine trigger...
+        imgTrigger.onclick = function(event) {
+            // ...impedisci al link 'href="#"' di far saltare la pagina
+            event.preventDefault(); 
+            
+            // ...mostra il modal
+            modal.style.display = "block";
+            messaggioErrore.textContent = ""; // Pulisci eventuali errori vecchi
+        }
+
+        // 3. Logica per CHIUDERE il modal
+        // Quando l'utente clicca sulla 'x', chiudi il modal
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Chiudi il modal anche se l'utente clicca fuori dalla finestra (sull'overlay scuro)
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 4. Logica per il SUBMIT (invio) del Form
+        loginForm.onsubmit = function(event) {
+            
+            // Impedisce al form di ricaricare la pagina
+            event.preventDefault();
+
+            // Prendi i valori inseriti dall'utente
+            const passInserita = document.getElementById("passwordInput").value;
+
+            // Controlla se corrispondono a quelli corretti
+            if (passInserita === PASSWORD_CORRETTA) {
+                // Se sono GIUSTI:
+                alert("Accesso Eseguito! Sarai reindirizzato.");
+                // Reindirizza alla pagina segreta
+                window.location.href = PAGINA_SEGRETA;
+            } else {
+                // Se sono SBAGLIATI:
+                messaggioErrore.textContent = "Credenziali errate. Riprova.";
+            }
+        }
+    </script>
+    </body>
+</html>

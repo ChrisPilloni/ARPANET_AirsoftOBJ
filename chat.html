@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicazione Segreta - Canale ARPA</title>
+    
+    <link rel="stylesheet" href="../css/arpanet.css" /> 
+    
+    <style>
+        /* [INCOLLA QUI IL CODICE CSS DAL PUNTO 2] */
+    </style>
+
+</head>
+<body>
+    <div id="chat-container">
+        <h2 style="padding: 10px; text-align: center; border-bottom: 2px solid #00ff00; margin: 0; font-family: 'MGS_chat', monospace;">CANALE SEGRETO: [OPERATION SNAKE EATER]</h2>
+        
+        <div id="chat-log">
+            <div class="message system">
+                <span class="sender">SYSTEM:</span>
+                <span class="content">Accesso consentito. Benvenuto, CQC Master. La prima missione inizia ora.</span>
+            </div>
+             <div class="message system">
+                <span class="sender">MAJOR ZERO:</span>
+                <span class="content">Snake, la tua missione è recuperare il file segreto: MGS_ZERO_ONE.</span>
+            </div>
+            <div class="message user">
+                <span class="sender">YOU:</span>
+                <span class="content">Ricevuto, Maggiore. Dove trovo il file?</span>
+            </div>
+            <div class="message system">
+                <span class="sender">MAJOR ZERO:</span>
+                <span class="content">Cerca la risposta nell'ombra dell'animale. **Indizio:** La volpe si nasconde.</span>
+            </div>
+        </div>
+
+        <div id="chat-input-area">
+            <input type="text" id="message-input" placeholder="Digita qui il tuo messaggio..." maxlength="200">
+            <button id="send-button">INVIA</button>
+        </div>
+    </div>
+
+    <script>
+        const chatLog = document.getElementById('chat-log');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        function aggiungiMessaggio(mittente, testo, tipo) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', tipo);
+
+            const senderSpan = document.createElement('span');
+            senderSpan.classList.add('sender');
+            senderSpan.textContent = mittente + ':';
+            
+            const contentSpan = document.createElement('span');
+            contentSpan.classList.add('content');
+            contentSpan.textContent = testo;
+
+            messageDiv.appendChild(senderSpan);
+            messageDiv.appendChild(contentSpan);
+            chatLog.appendChild(messageDiv);
+            
+            // Scorri in basso automaticamente
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function handleSend() {
+            const testo = messageInput.value.trim();
+            if (testo === '') return;
+
+            // Aggiungi il messaggio dell'utente
+            aggiungiMessaggio('YOU', testo, 'user');
+            
+            // Logica di risposta (puoi usarla per il tuo gioco/indovinello)
+            setTimeout(() => {
+                let risposta = "Il quartier generale non ha risposto. Riprova con una parola chiave.";
+                const lowerText = testo.toLowerCase();
+
+                if (lowerText.includes('volpe') || lowerText.includes('fox')) {
+                    risposta = "Il codice è: **FOXHOUND**. Usalo per il prossimo livello. Bene, Snake.";
+                } else if (lowerText.includes('missione')) {
+                     risposta = "La tua missione è completare l'indovinello per ottenere il codice.";
+                }
+
+                aggiungiMessaggio('MAJOR ZERO', risposta, 'system');
+            }, 1000); // Ritardo per simulare la risposta
+
+            messageInput.value = ''; // Pulisci l'input
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+
+    </script>
+</body>
+</html>
