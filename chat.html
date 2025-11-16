@@ -8,41 +8,63 @@
     
     <style>
         /* ===========================================
-        * ▼▼▼ STILE CHAT CODEC ▼▼▼
+        * ▼▼▼ STILE CHAT LOG STATICO (Corretto) ▼▼▼
         * ===========================================
         */
-
-        /* Contenitore principale (verde scuro) */
-        /* 1. Rimuovi lo sfondo bianco della pagina */
-        body {
-            background-color: #000 !important; /* Forza lo sfondo nero su tutto */
-        }
-
-        /* 2. Rimuovi lo sfondo della sezione che solitamente è bianca */
-        #features {
-            background-color: #000 !important;
-            padding: 0; /* Rimuovi padding non necessario se non vuoi margini esterni */
-        }
         
-        /* 3. Colore del testo: Rendi il testo normale meno brillante per leggibilità (Opzionale: usa un verde più scuro, ad esempio un grigio scuro, se #00ff00 è troppo luminoso) */
-        
-        /* Modifica il colore del testo principale (se ereditato da arpanet.css) */
-        .container p, .container h1, .container h2, .container a {
-            color: #00ff00; /* Manteniamo verde brillante o scegli un verde leggermente più scuro/meno saturo se necessario */
-        }
-
-        /* Testo nel container principale (sotto l'header) */
+        /* 1. CORREZIONE SFONDO: 
+           Rendiamo il wrapper trasparente per mostrare l'immagine 
+           di sfondo verde del body (da arpanet.css) */
         #page-wrapper {
-            background-color: #000;
+            background: transparent !important;
         }
 
-        /* 4. Migliora la visibilità del testo normale del footer o dei pulsanti */
-        .button {
-            /* Assicurati che i pulsanti abbiano alto contrasto (ad es. nero su verde o viceversa) */
-            /* Se usi un pulsante standard, potresti doverlo stilizzare con i colori CODEC */
+        /* 2. Manteniamo la sezione "features" nera/trasparente */
+        #features {
+            background: #000 !important;
+            padding-top: 2em; /* Aggiunge un po' di spazio sopra la chat */
         }
         
-        /* Forza lo stile CODEC per il pulsante di ritorno alla home */
+        /* 3. STILE CONTENITORE CHAT (Cornice verde) */
+        #chat-container {
+            max-width: 800px;
+            margin: 0 auto 50px auto; /* Centrato */
+            background-color: #004d00; /* Verde militare scuro */
+            border: 4px solid #00ff00;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+            padding: 10px;
+            border-radius: 0;
+        }
+
+        /* 4. STILE SCHERMO LOG (Interno nero) */
+        #chat-schermo {
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            height: 400px; 
+            overflow-y: auto; /* Abilita scroll se il log è lungo */
+            font-family: 'MGS_chat', monospace; 
+        }
+
+        /* 5. STILI TESTO MESSAGGI */
+        .messaggio {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: #00ff00; /* Colore base (mittente-utente) */
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+
+        .mittente-sistema {
+            color: #ffaa00; /* Giallo/Arancione per SYSTEM */
+            text-shadow: 0 0 5px rgba(255, 170, 0, 0.7);
+        }
+        
+        /* 6. NASCONDI INPUT (Non serve per un log) */
+        #chat-input-area {
+            display: none !important; 
+        }
+        
+        /* 7. STILE BOTTONE LOGOUT (CODEC) */
         .button.style1 {
             font-family: 'MGS', sans-serif;
             font-size: 1.1em;
@@ -62,83 +84,12 @@
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
         }
         
-        /* Aggiungo le modifiche specifiche per il tuo stile CODEC dalla risposta precedente per coerenza: */
-        #chat-schermo {
-            /* ... (altri stili) ... */
-            color: #00ff00; /* Mantiene il verde brillante all'interno della chat */
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        /* 8. Stile Header (per coerenza) */
+        #header .container h1 a,
+        #header .container p {
+             color: #00ff00;
         }
 
-        /* Input area (sotto lo schermo) */
-        #chat-input-area {
-            display: flex;
-            margin-top: 15px;
-        }
-
-        #messaggioInput {
-            flex-grow: 1; /* Occupare tutto lo spazio disponibile */
-            font-family: 'MGS_chat', monospace;
-            font-size: 1em;
-            background-color: #000;
-            color: #00ff00;
-            border: 2px solid #00ff00;
-            border-radius: 0;
-            padding: 10px;
-        }
-
-        #messaggioInput:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
-            background-color: #050a05;
-        }
-
-        #inviaBtn {
-            font-family: 'MGS', sans-serif;
-            font-size: 1em;
-            letter-spacing: 2px;
-            background-color: #000;
-            color: #00ff00;
-            border: 2px solid #00ff00;
-            border-radius: 0;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        #inviaBtn:hover {
-            background-color: #00ff00;
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-        }
-
-        /* Stile dei messaggi */
-        .messaggio {
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .mittente-utente {
-            color: #00ff00; /* Verde brillante per l'utente */
-        }
-        
-        .mittente-sistema {
-            color: #ff0000; /* Rosso per messaggi di sistema/allerta */
-        }
-        
-
-        .mittente-sistema {
-        color: #ffaa00; /* Giallo/Arancione acceso - Ottimo per avvisi leggibili */
-        text-shadow: 0 0 5px rgba(255, 170, 0, 0.7);
-        }
-
-        /* ===========================================
-        * ▲▲▲ STILE CHAT CODEC ▲▲▲
-        * ===========================================
-        */
-        #chat-input-area {
-        display: none !important; 
-    }
     </style>
 </head>
 <body class="homepage is-preload">
@@ -153,6 +104,7 @@
 
         <section id="features">
             <div class="container">
+            
                 <div id="chat-container">
                     <div id="chat-schermo">
                         <div class="messaggio mittente-sistema">>> CONNECTION ESTABLISHED. LOG RETRIEVED: 13.11.1966 23:45 UTC</div>
@@ -167,11 +119,6 @@
                         <div class="messaggio mittente-sistema">OCELOT>> Il punto $\mathbf{M}$ corrisponde alle coordinate $2205.000$ (E) e $5008.000$ (N). Vai lì. END LOG.</div>
                         <div class="messaggio mittente-sistema">>> CONNECTION TERMINATED.</div>
                     </div>
-
-                    <div id="chat-input-area" style="display: none;">
-                        <input type="text" id="messaggioInput" placeholder="Inserisci il messaggio..." disabled>
-                        <button id="inviaBtn" disabled>SEND</button>
-                    </div>
                 </div>
                 
                 <a href="index.html" class="button style1">Logout / Ritorna alla Home</a>
@@ -179,65 +126,7 @@
             </div>
         </section>
         
-        </div>
-
-    <script>
-        const chatSchermo = document.getElementById('chat-schermo');
-        const messaggioInput = document.getElementById('messaggioInput');
-        const inviaBtn = document.getElementById('inviaBtn');
-
-        // Funzione per aggiungere un messaggio allo schermo
-        function aggiungiMessaggio(testo, classeMittente = 'mittente-utente') {
-            const nuovoMessaggio = document.createElement('div');
-            nuovoMessaggio.classList.add('messaggio');
-            nuovoMessaggio.classList.add(classeMittente);
-            
-            // Simula un prompt di comando
-            const prompt = classeMittente === 'mittente-utente' ? 'BOSS>> ' : 'SYSTEM>> ';
-            nuovoMessaggio.textContent = prompt + testo;
-            
-            chatSchermo.appendChild(nuovoMessaggio);
-            
-            // Fai lo scroll automatico in fondo
-            chatSchermo.scrollTop = chatSchermo.scrollHeight;
-        }
-
-        // Gestore per l'invio del messaggio
-        function gestisciInvioMessaggio() {
-            const testo = messaggioInput.value.trim();
-            if (testo === "") return;
-
-            // 1. Aggiungi il messaggio dell'utente
-            aggiungiMessaggio(testo, 'mittente-utente');
-
-            // 2. LOGICA DI RISPOSTA (Qui puoi inserire risposte predefinite)
-            // Esempio: una risposta automatica
-            setTimeout(() => {
-                let risposta;
-                if (testo.toLowerCase().includes("ciao")) {
-                    risposta = "Welcome back, Boss. Mission parameters ready.";
-                } else if (testo.toLowerCase().includes("stato")) {
-                    risposta = "All systems green. Proceeding with protocol Delta-7.";
-                } else {
-                    risposta = "Message received. Awaiting further input.";
-                }
-                aggiungiMessaggio(risposta, 'mittente-sistema');
-            }, 800); // Ritardo per simulare l'attesa di una risposta
-
-            // 3. Pulisci l'input
-            messaggioInput.value = '';
-        }
-
-        // Collega gli eventi
-        inviaBtn.addEventListener('click', gestisciInvioMessaggio);
-        messaggioInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                gestisciInvioMessaggio();
-            }
-        });
-        
-        // Messaggio di benvenuto specifico
-        aggiungiMessaggio("Access granted. Ready for transmission.", 'mittente-sistema');
-    </script>
-</body>
+    </div>
+    
+    </body>
 </html>
