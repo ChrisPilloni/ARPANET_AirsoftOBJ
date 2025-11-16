@@ -102,27 +102,27 @@
 }
 
 /* 5. FORM (Input e Bottone) */
-#loginForm input[type="text"],
-#loginForm input[type="password"] {
+#loginForm input[type="text"] {
+    /* Stili generali già definiti (nero, verde, bordo) */
     font-family: 'MGS_chat', monospace;
     font-size: 1.2em;
-    background-color: #000; /* Sfondo nero */
-    color: #00ff00; /* Testo verde */
+    background-color: #000;
+    color: #00ff00;
     border: 2px solid #00ff00;
-    border-radius: 0; /* Angoli vivi */
+    border-radius: 0;
     padding: 10px;
     margin-top: 5px;
     
-    /* Proprietà ereditate da arpanet.css da resettare */
-    width: 100%;
+    /* Riduce la larghezza per i 3 caratteri */
+    width: 120px; 
+    text-align: right; /* Allinea il testo a destra */
     box-sizing: border-box; 
-    box-shadow: none; 
 }
-#loginForm input[type="text"]:focus,
-#loginForm input[type="password"]:focus {
-    outline: none; /* Niente contorno blu di default */
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Bagliore verde al focus */
-    background-color: #050a05; /* Leggero cambio colore */
+
+#loginForm input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    background-color: #050a05;
 }
 
 /* Stile Bottone "CONNECT" */
@@ -156,6 +156,24 @@
     color: #ff0000 !important; /* Rosso brillante per l'errore */
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
     margin-top: 15px;
+}
+
+/* Container per l'input e il suffisso (.000) */
+.input-gruppo {
+    display: flex; /* Mantiene l'input e il suffisso sulla stessa riga */
+    align-items: center;
+    margin-bottom: 15px; /* Spazio tra i gruppi di coordinate */
+}
+
+/* Stile per il suffisso (.000) */
+.suffisso-coord {
+    font-family: 'MGS_chat', monospace;
+    font-size: 1.2em;
+    color: #00ff00; /* Verde CODEC */
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+    margin-left: 5px;
+    /* Rimuove l'effetto di riempimento dell'input per allinearlo */
+    padding: 10px 0; 
 }
 
 
@@ -215,22 +233,29 @@
 
     <div id="modalLogin" class="modal">
         <div class="modal-contenuto">
-            <span class="chiudi-modal">&times;</span>
-            <h2>Accesso Area Riservata</h2>
-            <p>Inserisci le credenziali per continuare.</p>
+            <div class="modal-interno-codec"> <span class="chiudi-modal">&times;</span>
+                <h2 id="modalTitolo">Accesso Area Riservata</h2> <p>Inserisci le coordinate CTR (solo i primi 3 blocchi).</p>
 
-            <form id="loginForm">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Username" id="usernameInput" required>
-                
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Password" id="passwordInput" required>
+                <form id="loginForm">
+                    
+                    <label for="coordEst"><b>Coord. EST (E)</b></label>
+                    <div class="input-gruppo"> <input type="text" placeholder="XXX" id="coordEstInput" maxlength="3" required>
+                        <span class="suffisso-coord">.000</span>
+                    </div>
 
-                <button type="submit">CONNECT</button>
-                
-                <p id="messaggioErrore" style="color: red; text-align: center;"></p>
-            </form>
-            </div>     
+                    <label for="coordNord"><b>Coord. NORD (N)</b></label>
+                    <div class="input-gruppo">
+                        <input type="text" placeholder="YYY" id="coordNordInput" maxlength="3" required>
+                        <span class="suffisso-coord">.000</span>
+                    </div>
+
+                    <p id="istruzione" style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Esempio: 220.000 (E) / 500.000 (N)</p>
+
+                    <button type="submit">CONNECT</button>
+                    
+                    <p id="messaggioErrore"></p>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -241,27 +266,24 @@
         // La "chiave" (es. "immagineTrigger2") deve corrispondere all'ID
         // dell'elemento <a> nel tuo HTML.
         const loginConfigs = {
-    "immagineTrigger2": { // Trigger per 07.11.1966
-        // NUOVO CAMPO:
-        username: "snake",              // <-- Inserisci il tuo username
-        password: "password_giorno_1",
-        pagina: "pagina_giorno_1.html",
-        titolo: "Accesso 07.11.1966"
-    },
-    "immagineTrigger": { // Trigger per 08.11.1966 (il tuo originale)
-        // NUOVO CAMPO:
-        username: "ocelot",             // <-- Inserisci il tuo username
-        password: "12345",
-        pagina: "chat.html",
-        titolo: "Accesso 08.11.1966"
-    },
-    "immagineTrigger3": { // Trigger per [TOP SECRET]
-        // NUOVO CAMPO:
-        username: "bigboss",           // <-- Inserisci il tuo username
-        password: "password_segreta",
-        pagina: "pagina_top_secret.html",
-        titolo: "Accesso Area [TOP SECRET]"
-    }
+    "immagineTrigger2": { // Trigger per 07.11.1966
+        coordEst: "220",                    // <-- Coordinate Est (solo XXX)
+        coordNord: "500",                  // <-- Coordinate Nord (solo YYY)
+        pagina: "pagina_giorno_1.html",
+        titolo: "Accesso 07.11.1966"
+    },
+    "immagineTrigger": { // Trigger per 08.11.1966
+        coordEst: "100",                    // <-- Coordinate Est
+        coordNord: "450",                  // <-- Coordinate Nord
+        pagina: "chat.html",
+        titolo: "Accesso 08.11.1966"
+    },
+    "immagineTrigger3": { // Trigger per [TOP SECRET]
+        coordEst: "999",                    // <-- Coordinate Est
+        coordNord: "999",                  // <-- Coordinate Nord
+        pagina: "pagina_top_secret.html",
+        titolo: "Accesso Area [TOP SECRET]"
+    }
 };
 
         // --- 2. SELEZIONE DEGLI ELEMENTI HTML ---
@@ -316,27 +338,26 @@
         }
 
         // --- 6. LOGICA PER IL SUBMIT (DINAMICA) ---
-        loginForm.onsubmit = function(event) {
-            event.preventDefault(); // Impedisce al form di ricaricare la pagina
+loginForm.onsubmit = function(event) {
+    event.preventDefault(); 
 
-            if (!triggerAttivo) return; 
+    if (!triggerAttivo) return; 
 
-            const config = loginConfigs[triggerAttivo];
-            
-            // Prendi i valori inseriti dall'utente
-            const userInserito = document.getElementById("usernameInput").value; // <-- NUOVO
-            const passInserita = document.getElementById("passwordInput").value;
+    const config = loginConfigs[triggerAttivo];
+    
+    // Prendi i valori a 3 cifre inseriti dall'utente
+    const estInserito = document.getElementById("coordEstInput").value;
+    const nordInserito = document.getElementById("coordNordInput").value;
 
-            // Controlla SE SIA USERNAME CHE PASSWORD sono corretti
-            if (userInserito === config.username && passInserita === config.password) {
-                // Se è GIUSTO:
-                alert("Benvenuto Boss.");
-                // Reindirizza alla pagina specifica
-                window.location.href = config.pagina;
-            } else {
-                // Se è SBAGLIATO:
-        messaggioErrore.textContent = "Credenziali errate. Riprova.";
-    }
+    // CONFRONTA i valori a 3 cifre (XXX e YYY) con la configurazione
+    if (estInserito === config.coordEst && nordInserito === config.coordNord) {
+        // Se sono GIUSTE:
+        alert(`Connessione Stabilita.\nAccesso a CTR: ${config.coordEst}.000 (E) / ${config.coordNord}.000 (N)`);
+        window.location.href = config.pagina;
+    } else {
+        // Se sono SBAGLIATE:
+        messaggioErrore.textContent = "Coordinate di reticolo non valide. Riprova.";
+    }
 }
     </script>
 
