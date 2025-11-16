@@ -7,64 +7,53 @@
     <link rel="stylesheet" href="css/arpanet.css" /> 
     
     <style>
-        /* ===========================================
-        * ▼▼▼ STILE CHAT LOG STATICO (Corretto) ▼▼▼
-        * ===========================================
-        */
+        #page-wrapper { background: transparent !important; }
+        #features { background: #000 !important; padding-top: 2em; }
         
-        /* 1. CORREZIONE SFONDO: 
-           Rendiamo il wrapper trasparente per mostrare l'immagine 
-           di sfondo verde del body (da arpanet.css) */
-        #page-wrapper {
-            background: transparent !important;
-        }
-
-        /* 2. Manteniamo la sezione "features" nera/trasparente */
-        #features {
-            background: #000 !important;
-            padding-top: 2em; /* Aggiunge un po' di spazio sopra la chat */
-        }
-        
-        /* 3. STILE CONTENITORE CHAT (Cornice verde) */
         #chat-container {
             max-width: 800px;
-            margin: 0 auto 50px auto; /* Centrato */
-            background-color: #004d00; /* Verde militare scuro */
+            margin: 0 auto 50px auto;
+            background-color: #004d00;
             border: 4px solid #00ff00;
             box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
             padding: 10px;
             border-radius: 0;
         }
 
-        /* 4. STILE SCHERMO LOG (Interno nero) */
         #chat-schermo {
             background: #000;
             border: 2px solid #00ff00;
             padding: 20px;
             height: 400px; 
-            overflow-y: auto; /* Abilita scroll se il log è lungo */
-            font-family: 'MGS_chat', monospace; 
+            overflow-y: auto;
+            /* FONT "Secure Communication" (presumo 'MGS') come default */
+            font-family: 'MGS', sans-serif; 
         }
 
-        /* 5. STILI TESTO MESSAGGI */
         .messaggio {
             margin-bottom: 8px;
             line-height: 1.4;
-            color: #00ff00; /* Colore base (mittente-utente) */
+            color: #00ff00; 
             text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
         }
-
+        
         .mittente-sistema {
-            color: #ffaa00; /* Giallo/Arancione per SYSTEM */
+            color: #ffaa00; 
             text-shadow: 0 0 5px rgba(255, 170, 0, 0.7);
         }
-        
-        /* 6. NASCONDI INPUT (Non serve per un log) */
-        #chat-input-area {
-            display: none !important; 
+
+        /* FONT "Chat" (MGS_chat) solo per il nome */
+        .mittente-nome {
+            font-family: 'MGS_chat', monospace; 
+            margin-right: 8px;
         }
         
-        /* 7. STILE BOTTONE LOGOUT (CODEC) */
+        .mittente-testo {
+             /* Eredita il font da #chat-schermo */
+        }
+        
+        #chat-input-area { display: none !important; }
+        
         .button.style1 {
             font-family: 'MGS', sans-serif;
             font-size: 1.1em;
@@ -84,12 +73,10 @@
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
         }
         
-        /* 8. Stile Header (per coerenza) */
         #header .container h1 a,
         #header .container p {
              color: #00ff00;
         }
-
     </style>
 </head>
 <body class="homepage is-preload">
@@ -104,29 +91,59 @@
 
         <section id="features">
             <div class="container">
-            
                 <div id="chat-container">
                     <div id="chat-schermo">
-                        <div class="messaggio mittente-sistema">>> CONNECTION ESTABLISHED. LOG RETRIEVED: 13.11.1966 23:45 UTC</div>
-                        <div class="messaggio mittente-sistema">>> User 'Alpha' has successfully connected.</div>
-                        <div class="messaggio mittente-utente">ALPHA>> Ocelot, sei pronto? Ho bisogno di quel rapporto finale.</div>
-                        <div class="messaggio mittente-sistema">OCELOT>> Quasi pronto, Alpha. La cifratura è complessa. Devi essere preciso.</div>
-                        <div class="messaggio mittente-utente">ALPHA>> Non ho tempo. Dimmi solo le coordinate del punto d'incontro per il "Protocollo Shagohod".</div>
-                        <div class="messaggio mittente-sistema">OCELOT>> Ricevuto. Le coordinate di reticolo per il punto 🅺, in formato base 10, sono: $\mathbf{4481}$ a Est.</div>
-                        <div class="messaggio mittente-sistema">OCELOT>> Per la coordinata Nord, aggiungi $\mathbf{152}$ al numero di stelle nella bandiera americana, e moltiplica per 10.</div>
-                        <div class="messaggio mittente-utente">ALPHA>> (Silenzio)</div>
-                        <div class="messaggio mittente-sistema">OCELOT>> E' un test, Boss. Il punto $\mathbf{M}$ è il punto di arrivo.</div>
-                        <div class="messaggio mittente-sistema">OCELOT>> Il punto $\mathbf{M}$ corrisponde alle coordinate $2205.000$ (E) e $5008.000$ (N). Vai lì. END LOG.</div>
-                        <div class="messaggio mittente-sistema">>> CONNECTION TERMINATED.</div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">CONNECTION ESTABLISHED. LOG RETRIEVED: 13.11.1966 23:45 UTC</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">User 'Alpha' has successfully connected.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">Ocelot, sei pronto? Ho bisogno di quel rapporto finale.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Quasi pronto, Alpha. La cifratura è complessa. Devi essere preciso.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">Non ho tempo. Dimmi solo le coordinate del punto d'incontro per il "Protocollo Shagohod".</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Ricevuto. Le coordinate di reticolo per il punto 🅺, in formato base 10, sono: $\mathbf{4481}$ a Est.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Per la coordinata Nord, aggiungi $\mathbf{152}$ al numero di stelle nella bandiera americana, e moltiplica per 10.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">(Silenzio)</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">E' un test, Boss. Il punto $\mathbf{M}$ è il punto di arrivo.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Il punto $\mathbf{M}$ corrisponde alle coordinate $2205.000$ (E) e $5008.000$ (N). Vai lì. END LOG.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">CONNECTION TERMINATED.</span>
+                        </div>
                     </div>
                 </div>
                 
                 <a href="index.html" class="button style1">Logout / Ritorna alla Home</a>
-
             </div>
         </section>
         
     </div>
-    
-    </body>
+</body>
 </html>
