@@ -114,7 +114,7 @@
     margin-top: 5px;
     
     /* Riduce la larghezza per i 3 caratteri */
-    width: 120px; 
+    width: 145px; 
     text-align: right; /* Allinea il testo a destra */
     box-sizing: border-box; 
 }
@@ -233,23 +233,26 @@
 
     <div id="modalLogin" class="modal">
         <div class="modal-contenuto">
-            <div class="modal-interno-codec"> <span class="chiudi-modal">&times;</span>
-                <h2 id="modalTitolo">Accesso Area Riservata</h2> <p>Inserisci le coordinate CTR (solo i primi 3 blocchi).</p>
+            <div class="modal-interno-codec">
+                <span class="chiudi-modal">&times;</span>
+                <h2 id="modalTitolo">Accesso Area Riservata</h2>
+                <p>Inserisci le coordinate CTR (solo i primi **4** blocchi).</p>
 
                 <form id="loginForm">
                     
                     <label for="coordEst"><b>Coord. EST (E)</b></label>
-                    <div class="input-gruppo"> <input type="text" placeholder="XXX" id="coordEstInput" maxlength="3" required>
+                    <div class="input-gruppo">
+                        <input type="text" placeholder="XXXX" id="coordEstInput" maxlength="4" required>
                         <span class="suffisso-coord">.000</span>
                     </div>
 
                     <label for="coordNord"><b>Coord. NORD (N)</b></label>
                     <div class="input-gruppo">
-                        <input type="text" placeholder="YYY" id="coordNordInput" maxlength="3" required>
+                        <input type="text" placeholder="YYYY" id="coordNordInput" maxlength="4" required>
                         <span class="suffisso-coord">.000</span>
                     </div>
 
-                    <p id="istruzione" style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Esempio: 220.000 (E) / 500.000 (N)</p>
+                    <p id="istruzione" style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Esempio: **2205**.000 (E) / **5008**.000 (N)</p>
 
                     <button type="submit">CONNECT</button>
                     
@@ -267,20 +270,20 @@
         // dell'elemento <a> nel tuo HTML.
         const loginConfigs = {
     "immagineTrigger2": { // Trigger per 07.11.1966
-        coordEst: "220",                    // <-- Coordinate Est (solo XXX)
-        coordNord: "500",                  // <-- Coordinate Nord (solo YYY)
+        coordEst: "2205",                    // <-- 4 cifre
+        coordNord: "5008",                  // <-- 4 cifre
         pagina: "pagina_giorno_1.html",
         titolo: "Accesso 07.11.1966"
     },
     "immagineTrigger": { // Trigger per 08.11.1966
-        coordEst: "100",                    // <-- Coordinate Est
-        coordNord: "450",                  // <-- Coordinate Nord
+        coordEst: "1005",                    // <-- 4 cifre
+        coordNord: "4509",                  // <-- 4 cifre
         pagina: "chat.html",
         titolo: "Accesso 08.11.1966"
     },
     "immagineTrigger3": { // Trigger per [TOP SECRET]
-        coordEst: "999",                    // <-- Coordinate Est
-        coordNord: "999",                  // <-- Coordinate Nord
+        coordEst: "9999",                    // <-- 4 cifre
+        coordNord: "9999",                  // <-- 4 cifre
         pagina: "pagina_top_secret.html",
         titolo: "Accesso Area [TOP SECRET]"
     }
