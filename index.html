@@ -102,6 +102,7 @@
 }
 
 /* 5. FORM (Input e Bottone) */
+#loginForm input[type="text"],
 #loginForm input[type="password"] {
     font-family: 'MGS_chat', monospace;
     font-size: 1.2em;
@@ -117,7 +118,7 @@
     box-sizing: border-box; 
     box-shadow: none; 
 }
-
+#loginForm input[type="text"]:focus,
 #loginForm input[type="password"]:focus {
     outline: none; /* Niente contorno blu di default */
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Bagliore verde al focus */
@@ -219,13 +220,17 @@
             <p>Inserisci le credenziali per continuare.</p>
 
             <form id="loginForm">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Username" id="usernameInput" required>
+                
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Inserisci Password" id="passwordInput" required>
+                <input type="password" placeholder="Password" id="passwordInput" required>
 
                 <button type="submit">CONNECT</button>
                 
                 <p id="messaggioErrore" style="color: red; text-align: center;"></p>
             </form>
+            </div>     
         </div>
     </div>
 
@@ -236,22 +241,28 @@
         // La "chiave" (es. "immagineTrigger2") deve corrispondere all'ID
         // dell'elemento <a> nel tuo HTML.
         const loginConfigs = {
-            "immagineTrigger2": { // Trigger per 07.11.1966
-                password: "password_giorno_1",    // <-- Cambia questa
-                pagina: "pagina_giorno_1.html", // <-- Cambia questa
-                titolo: "Accesso 07.11.1966"
-            },
-            "immagineTrigger": { // Trigger per 08.11.1966 (il tuo originale)
-                password: "12345",              // <-- Mantenuto il tuo originale
-                pagina: "chat.html",            // <-- Mantenuto il tuo originale
-                titolo: "Accesso 08.11.1966"
-            },
-            "immagineTrigger3": { // Trigger per [TOP SECRET]
-                password: "password_segreta",   // <-- Cambia questa
-                pagina: "pagina_top_secret.html", // <-- Cambia questa
-                titolo: "Accesso Area [TOP SECRET]"
-            }
-        };
+    "immagineTrigger2": { // Trigger per 07.11.1966
+        // NUOVO CAMPO:
+        username: "snake",              // <-- Inserisci il tuo username
+        password: "password_giorno_1",
+        pagina: "pagina_giorno_1.html",
+        titolo: "Accesso 07.11.1966"
+    },
+    "immagineTrigger": { // Trigger per 08.11.1966 (il tuo originale)
+        // NUOVO CAMPO:
+        username: "ocelot",             // <-- Inserisci il tuo username
+        password: "12345",
+        pagina: "chat.html",
+        titolo: "Accesso 08.11.1966"
+    },
+    "immagineTrigger3": { // Trigger per [TOP SECRET]
+        // NUOVO CAMPO:
+        username: "bigboss",           // <-- Inserisci il tuo username
+        password: "password_segreta",
+        pagina: "pagina_top_secret.html",
+        titolo: "Accesso Area [TOP SECRET]"
+    }
+};
 
         // --- 2. SELEZIONE DEGLI ELEMENTI HTML ---
         const modal = document.getElementById("modalLogin");
@@ -306,28 +317,27 @@
 
         // --- 6. LOGICA PER IL SUBMIT (DINAMICA) ---
         loginForm.onsubmit = function(event) {
-            event.preventDefault(); // Impedisce al form di ricaricare la pagina
+            event.preventDefault(); // Impedisce al form di ricaricare la pagina
 
-            // Se nessun trigger è attivo, non fare nulla (sicurezza)
-            if (!triggerAttivo) return; 
+            if (!triggerAttivo) return; 
 
-            // Prendi la configurazione corretta basata sul trigger che abbiamo salvato
-            const config = loginConfigs[triggerAttivo];
-            
-            // Prendi la password inserita dall'utente
-            const passInserita = document.getElementById("passwordInput").value;
+            const config = loginConfigs[triggerAttivo];
+            
+            // Prendi i valori inseriti dall'utente
+            const userInserito = document.getElementById("usernameInput").value; // <-- NUOVO
+            const passInserita = document.getElementById("passwordInput").value;
 
-            // Controlla se la password inserita è UGUALE a quella nella configurazione
-            if (passInserita === config.password) {
-                // Se è GIUSTA:
-                alert("Benvenuto Boss.");
-                // Reindirizza alla pagina specifica per quel trigger
-                window.location.href = config.pagina;
-            } else {
-                // Se è SBAGLIATA:
-                messaggioErrore.textContent = "Credenziali errate. Riprova.";
-            }
-        }
+            // Controlla SE SIA USERNAME CHE PASSWORD sono corretti
+            if (userInserito === config.username && passInserita === config.password) {
+                // Se è GIUSTO:
+                alert("Benvenuto Boss.");
+                // Reindirizza alla pagina specifica
+                window.location.href = config.pagina;
+            } else {
+                // Se è SBAGLIATO:
+        messaggioErrore.textContent = "Credenziali errate. Riprova.";
+    }
+}
     </script>
 
     </body>
