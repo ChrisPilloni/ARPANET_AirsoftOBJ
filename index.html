@@ -236,24 +236,21 @@
             <div class="modal-interno-codec">
                 <span class="chiudi-modal">&times;</span>
                 <h2 id="modalTitolo">Accesso Area Riservata</h2>
-                <p>Inserisci le coordinate CTR (solo i primi **4** blocchi).</p>
 
                 <form id="loginForm">
                     
-                    <label for="coordEst"><b>Coord. EST (E)</b></label>
+                    <label for="coordEst"><b>E</b></label>
                     <div class="input-gruppo">
                         <input type="text" placeholder="XXXX" id="coordEstInput" maxlength="4" required>
                         <span class="suffisso-coord">.000</span>
                     </div>
 
-                    <label for="coordNord"><b>Coord. NORD (N)</b></label>
+                    <label for="coordNord"><b>N</b></label>
                     <div class="input-gruppo">
                         <input type="text" placeholder="YYYY" id="coordNordInput" maxlength="4" required>
                         <span class="suffisso-coord">.000</span>
                     </div>
-
-                    <p id="istruzione" style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Esempio: **2205**.000 (E) / **5008**.000 (N)</p>
-
+                    
                     <button type="submit">CONNECT</button>
                     
                     <p id="messaggioErrore"></p>
