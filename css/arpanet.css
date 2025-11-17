@@ -14,6 +14,13 @@
 	font-weight: normal; /* Specifica il peso del font */
 	font-style: normal;  /* Specifica lo stile del font */
 }
+@font-face {
+	font-family: 'typewriter'; /* Il nome che userai nel CSS */
+	/* Includi solo il file TTF */
+	src: url('../fonts/typewcond_regular.otf') format('truetype'); 
+	font-weight: normal; /* Specifica il peso del font */
+	font-style: normal;  /* Specifica lo stile del font */
+}
 body {
   /* Background settings */
   background-image: url("../Immagini/sfondo.png");
