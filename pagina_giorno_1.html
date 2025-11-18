@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>ARPANET - Sessione Chat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="css/arpanet.css" /> 
+    
+    <style>
+        /* 1. CORREZIONE SFONDO: 
+       Rendiamo trasparenti i wrapper principali */
+    #page-wrapper { background: transparent !important; }
+    
+    /* NUOVA REGOLA: Rende trasparente il contenitore "main" */
+    #main { background: transparent !important; }
+
+    /* 2. Manteniamo la sezione "features" nera/trasparente */
+    #features {
+        background: #000 !important;
+        padding-top: 2em; 
+    }
+    
+    /* 3. STILE CONTENITORE CHAT (Cornice verde) */
+    #chat-container {
+        max-width: 800px;
+        margin: 0 auto 50px auto; 
+        background-color: #004d00;
+        border: 4px solid #00ff00;
+        box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+        padding: 10px;
+        border-radius: 0;
+    }
+
+        #chat-schermo {
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            height: 400px; 
+            overflow-y: auto;
+            /* FONT "Secure Communication" (presumo 'MGS') come default */
+            font-family: 'MGS', sans-serif; 
+        }
+
+        .messaggio {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: #00ff00; 
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+        
+        .mittente-sistema {
+            color: #ffaa00; 
+            text-shadow: 0 0 5px rgba(255, 170, 0, 0.7);
+        }
+
+        /* FONT "Chat" (MGS_chat) solo per il nome */
+        .mittente-nome {
+            font-family: 'MGS_chat', monospace; 
+            margin-right: 8px;
+        }
+        
+        .mittente-testo {
+            font-family: 'typewriter', monospace; 
+            margin-right: 8px;
+        }
+        
+        #chat-input-area { display: none !important; }
+        
+        .button.style1 {
+            font-family: 'MGS', sans-serif;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            padding: 10px 15px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .button.style1:hover {
+            background-color: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+        }
+        
+        #header .container h1 a,
+        #header .container p {
+             color: #00ff00;
+        }
+    </style>
+</head>
+<body class="homepage is-preload">
+    <div id="page-wrapper">
+
+        <section id="header">
+            <div class="container">
+                <h1 id="logo"><a href="index.html">ARPANET - COMS QG 22.11.66</a></h1>
+                <p>Secure Communication Link Established</p>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div id="chat-container">
+                    <div id="chat-schermo">
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">CONNECTION ESTABLISHED. LOG RETRIEVED: 13.11.1966 23:45 UTC</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">User 'Alpha' has successfully connected.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">Ocelot, sei pronto? Ho bisogno di quel rapporto finale.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Quasi pronto, Alpha. La cifratura è complessa. Devi essere preciso.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">Non ho tempo. Dimmi solo le coordinate del punto d'incontro per il "Protocollo Shagohod".</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Ricevuto. Le coordinate di reticolo per il punto 🅺, in formato base 10, sono: $\mathbf{4481}$ a Est.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Per la coordinata Nord, aggiungi $\mathbf{152}$ al numero di stelle nella bandiera americana, e moltiplica per 10.</span>
+                        </div>
+                        <div class="messaggio mittente-utente">
+                            <span class="mittente-nome">ALPHA>></span>
+                            <span class="mittente-testo">(Silenzio)</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">E' un test, Boss. Il punto $\mathbf{M}$ è il punto di arrivo.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">OCELOT>></span>
+                            <span class="mittente-testo">Il punto $\mathbf{M}$ corrisponde alle coordinate $2205.000$ (E) e $5008.000$ (N). Vai lì. END LOG.</span>
+                        </div>
+                        <div class="messaggio mittente-sistema">
+                            <span class="mittente-nome">>></span>
+                            <span class="mittente-testo">CONNECTION TERMINATED.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="index.html" class="button style1">Logout</a>
+            </div>
+        </section>
+        
+    </div>
+</body>
+</html>
