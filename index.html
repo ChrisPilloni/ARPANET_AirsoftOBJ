@@ -8,43 +8,33 @@
 
     <style>
         /* ======================================= */
-        /* STILI GENERALI (Per coerenza con la Chat) */
+        /* STILI GENERALI */
         /* ======================================= */
-        
-        /* 1. CORREZIONE SFONDO: Rendiamo trasparenti i wrapper principali */
         #page-wrapper { background: transparent !important; }
         #main { background: transparent !important; }
+        #features { background: #000 !important; padding-top: 2em; }
         
-        /* 2. Manteniamo la sezione "features" nera/trasparente */
-        #features {
-            background: #000 !important;
-            padding-top: 2em; 
-        }
-
-        /* 3. Colori Header (Titolo/Sottotitolo) */
         #header .container h1 a,
         #header .container p {
-            color: #ff0000; /* Verde brillante per l'intestazione */
+            color: #ff0000; 
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.596);
         }
 
-        /* 4. Titoli Sezioni (07.11.1966, ecc.) - Stile da chat/progetto */
         #features h1 {
             font-family: 'typewriter', sans-serif; 
-            color: #ffaa00; /* Giallo-Arancio per enfasi */
+            color: #ffaa00; 
             text-shadow: 0 0 8px rgba(255, 170, 0, 0.9);
             font-size: 1.5em;
             letter-spacing: 1px;
         }
         
-        /* 5. Immagini */
         .image.featured {
-            border: 2px solid #00ff00; /* Cornice verde per le immagini */
+            border: 2px solid #00ff00; 
             box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
 
         /* ======================================= */
-        /* STILI MODAL (Già forniti dall'utente) */
+        /* STILI MODAL & CODEC */
         /* ======================================= */
 
         #immagineTrigger, #immagineTrigger2, #immagineTrigger3 {
@@ -52,168 +42,136 @@
             transition: transform 0.2s;
         }
         #immagineTrigger:hover, #immagineTrigger2:hover, #immagineTrigger3:hover {
-            transform: scale(1.05); /* Leggero zoom al passaggio del mouse */
+            transform: scale(1.05); 
         }
 
-        /* L'overlay scuro di sfondo (invariato) */
         .modal {
-            display: none; /* Nascosto di default */
-            position: fixed; /* Rimane fermo anche se scorri la pagina */
-            z-index: 1000; /* Sta sopra a tutto il resto */
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* Abilita lo scroll se serve */
-            background-color: rgba(0, 0, 0, 0.6); /* Sfondo nero semi-trasparente */
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo un po' più scuro */
         }
 
-        /* * ===========================================
-        * ▼▼▼ INIZIA LA NUOVA CORNICE "CODEC" ▼▼▼
-        * ===========================================
-        */
-
-        /* 1. LA CORNICE ESTERNA (verde scuro) */
         .modal-contenuto {
-            /* Layout */
-            margin: 10% auto; /* 10% dall'alto per centrarlo meglio */
-            width: 90%;
-            max-width: 500px; /* Un po' più largo per lo stile */
-            
-            /* Stile "Cornice" (MGS Style) */
-            background-color: #004d00; /* Verde militare scuro */
-            border: 4px solid #00ff00; /* Bordo verde brillante */
-            border-radius: 0; /* ANGOLI VIVI, niente arrotondamento */
-            padding: 12px; /* Spazio tra bordo esterno e interno */
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); /* Bagliore verde */
-            
-            /* Proprietà del font ereditate */
+            margin: 10% auto; 
+            width: 95%; /* Un po' più largo per far stare i nuovi input */
+            max-width: 600px; /* Aumentato max-width */
+            background-color: #004d00; 
+            border: 4px solid #00ff00; 
+            border-radius: 0; 
+            padding: 12px; 
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); 
             color: #00ff00;
         }
 
-        /* 2. IL BOX INTERNO (nero) */
         .modal-interno-codec {
-            background: #000; /* Sfondo nero puro per il contenuto */
-            border: 2px solid #00ff00; /* Bordo interno verde */
-            padding: 25px; /* Spazio per il contenuto */
+            background: #000; 
+            border: 2px solid #00ff00; 
+            padding: 25px; 
         }
 
-        /* 3. IL PULSANTE DI CHIUSURA (la 'x') */
         .chiudi-modal {
-            color: #00ff00; /* Colore verde brillante */
+            color: #00ff00; 
             float: right;
             font-size: 32px;
             font-weight: bold;
-            text-shadow: 0 0 5px #00ff00; /* Leggero bagliore */
+            text-shadow: 0 0 5px #00ff00; 
             opacity: 0.7;
-            margin-top: -5px; /* Aggiustamento posizione */
-        }
-
-        .chiudi-modal:hover,
-        .chiudi-modal:focus {
-            color: #fff; /* Bianco al passaggio del mouse */
-            opacity: 1;
-            text-decoration: none;
+            margin-top: -5px; 
             cursor: pointer;
         }
+        .chiudi-modal:hover { opacity: 1; color: #fff; }
 
-        /* 4. TESTO INTERNO (h2, p, label) */
-        /* Sovrascrive i colori di default per usare quelli del codec */
         .modal-interno-codec h2, 
         .modal-interno-codec p, 
         .modal-interno-codec label {
-            font-family: 'MGS_chat', 'MGS', monospace; /* USA I TUOI FONT! */
-            color: #00ff00 !important; /* Verde brillante (importante per forzare) */
-            text-align: left; /* Allineamento a sinistra, stile terminale */
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Bagliore testo */
+            font-family: 'MGS_chat', 'MGS', monospace; 
+            color: #00ff00 !important; 
+            text-align: left; 
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); 
         }
 
-        .modal-interno-codec h2 {
-            font-size: 1.5em;
-            text-transform: uppercase;
-        }
-        .modal-interno-codec p {
-            font-size: 1em;
-        }
         .modal-interno-codec label {
-            font-size: 1em;
+            font-size: 1.2em;
             margin-bottom: 5px;
+            margin-top: 15px;
             display: block;
+            font-weight: bold;
         }
 
-        /* 5. FORM (Input e Bottone) */
-        #loginForm input[type="text"] {
-            /* Stili generali già definiti (nero, verde, bordo) */
+        /* --- NUOVI STILI PER GLI INPUT COORDINATE --- */
+        
+        .input-gruppo {
+            display: flex; 
+            align-items: center; /* Allinea verticalmente al centro */
+            justify-content: flex-start;
+            gap: 5px; /* Spazio tra i pezzettini */
+        }
+
+        /* Stile base per tutti gli input delle coordinate */
+        .coord-input {
             font-family: 'MGS_chat', monospace;
-            font-size: 1.2em;
+            font-size: 1.3em;
             background-color: #000;
             color: #00ff00;
             border: 2px solid #00ff00;
             border-radius: 0;
-            padding: 10px;
-            margin-top: 5px;
-            
-            /* Riduce la larghezza per i 4 caratteri */
-            width: 145px; 
-            text-align: right; /* Allinea il testo a destra */
-            box-sizing: border-box; 
+            padding: 8px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        #loginForm input[type="text"]:focus {
+        .coord-input:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
-            background-color: #050a05;
+            background-color: #051a05;
+            box-shadow: 0 0 10px #00ff00;
         }
 
-        /* Stile Bottone "CONNECT" */
+        /* Dimensioni specifiche */
+        .w-3 { width: 70px; } /* Per input a 3 cifre */
+        .w-4 { width: 90px; } /* Per input a 4 cifre */
+
+        /* Separatore (il punto) e lo Zero finale */
+        .separatore, .suffisso-zero {
+            font-family: 'MGS_chat', monospace;
+            font-size: 1.5em;
+            color: #00ff00;
+            font-weight: bold;
+            padding-top: 5px; /* Piccolo adjust visivo */
+        }
+
         #loginForm button {
-            font-family: 'MGS', sans-serif; /* Font MGS principale */
+            font-family: 'MGS', sans-serif; 
             font-size: 1.2em;
             letter-spacing: 2px;
             text-transform: uppercase;
-            
             background-color: #000;
             color: #00ff00;
             border: 2px solid #00ff00;
             border-radius: 0;
-            
             padding: 14px 20px;
-            margin-top: 20px;
+            margin-top: 25px;
             cursor: pointer;
             width: 100%;
         }
 
         #loginForm button:hover {
-            background-color: #00ff00; /* Inverti colori al hover */
+            background-color: #00ff00; 
             color: #000;
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-            opacity: 1; /* Resetta l'opacità standard */
         }
 
-        /* Messaggio di Errore */
         #messaggioErrore {
             font-family: 'MGS_chat', monospace;
-            color: #ff0000 !important; /* Rosso brillante per l'errore */
+            color: #ff0000 !important; 
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
             margin-top: 15px;
-        }
-
-        /* Container per l'input e il suffisso (.000) */
-        .input-gruppo {
-            display: flex; /* Mantiene l'input e il suffisso sulla stessa riga */
-            align-items: center;
-            margin-bottom: 15px; /* Spazio tra i gruppi di coordinate */
-        }
-
-        /* Stile per il suffisso (.000) */
-        .suffisso-coord {
-            font-family: 'MGS_chat', monospace;
-            font-size: 1.2em;
-            color: #00ff00; /* Verde CODEC */
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
-            margin-left: 5px;
-            /* Rimuove l'effetto di riempimento dell'input per allinearlo */
-            padding: 10px 0; 
+            min-height: 1.2em; /* Evita saltelli se vuoto */
         }
 
     </style>
@@ -234,40 +192,28 @@
             <div class="container">
                 <div class="row aln-center">
                     <div class="col-4 col-6-medium col-12-small">
-
                         <section>
                             <a href="chat.html" id="immagineTrigger2" class="image featured">
-                                <img src="Immagini/Copilot_20251118_231448.png" alt="Icona di accesso 07.11.1966" />
+                                <img src="Immagini/Copilot_20251118_231448.png" alt="Icona 1" />
                             </a>
-                            <header>
-                                <h1>07.11.1966</h1>
-                            </header>
+                            <header><h1>07.11.1966</h1></header>
                         </section>
-
                     </div>
                     <div class="col-4 col-6-medium col-12-small">
-
                         <section>
-                            <a href="#" id="immagineTrigger" class="image featured"><img src="Immagini/Copilot_20251118_231448.png" alt="Icona di accesso 08.11.1966" /></a>
-                            <header>
-                                <h1>08.11.1966</h1>
-                            </header>
+                            <a href="#" id="immagineTrigger" class="image featured">
+                                <img src="Immagini/Copilot_20251118_231448.png" alt="Icona 2" />
+                            </a>
+                            <header><h1>08.11.1966</h1></header>
                         </section>
-
                     </div>
                     <div class="col-4 col-6-medium col-12-small">
-
                         <section>
                             <a href="#" id="immagineTrigger3" class="image featured">
-                                <img src="Immagini/Copilot_20251118_230245.png" alt="Icona Progetto Philosopher" />
+                                <img src="Immagini/Copilot_20251118_230245.png" alt="Icona 3" />
                             </a>
-                            <header>
-                                <h1>Philosophers Project</h1>
-                            </header>
+                            <header><h1>Philosophers Project</h1></header>
                         </section>
-
-                    </div>
-                    <div class="col-4 col-6-medium col-12-small">
                     </div>
                 </div>
             </div>
@@ -281,18 +227,22 @@
                 <span class="chiudi-modal">&times;</span>
                 <h2 id="modalTitolo">Accesso Area Riservata</h2>
 
-                <form id="loginForm">
+                <form id="loginForm" autocomplete="off">
                     
-                    <label for="coordEstInput"><b>E</b></label>
+                    <label>COORDINATA EST (E)</label>
                     <div class="input-gruppo">
-                        <input type="text" placeholder="XXXX" id="coordEstInput" maxlength="4" required>
-                        <span class="suffisso-coord">.000</span>
+                        <input type="text" id="estInt" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
+                        <span class="separatore">.</span>
+                        <input type="text" id="estDec" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
+                        <span class="suffisso-zero">0</span>
                     </div>
 
-                    <label for="coordNordInput"><b>N</b></label>
+                    <label>COORDINATA NORD (N)</label>
                     <div class="input-gruppo">
-                        <input type="text" placeholder="YYYY" id="coordNordInput" maxlength="4" required>
-                        <span class="suffisso-coord">.000</span>
+                        <input type="text" id="nordInt" class="coord-input w-4" maxlength="4" placeholder="YYYY" required>
+                        <span class="separatore">.</span>
+                        <input type="text" id="nordDec" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
+                        <span class="suffisso-zero">0</span>
                     </div>
                     
                     <button type="submit">CONNECT</button>
@@ -306,99 +256,130 @@
 
     <script>
         // --- 1. CONFIGURAZIONE ---
+        // Ho aggiornato i codici per adattarli al nuovo formato (Int + Dec)
+        // Esempio: Est: 220.500 -> estInt: "220", estDec: "50" (il terzo 0 è statico o parte dell'input?)
+        // Richiesta: "6 valori editabili divisi da un punto (3 e 3 editabili) più lo zero non editabile"
+        // Quindi Est Input totale = 6 cifre. Nord Input totale = 7 cifre.
+        
         const loginConfigs = {
-            "immagineTrigger2": { // Trigger per 07.11.1966
-                coordEst: "2205",                    
-                coordNord: "5008",                  
+            "immagineTrigger2": { 
+                // Es. 220.500 0
+                estInt: "220", estDec: "500",
+                nordInt: "5008", nordDec: "100",
                 pagina: "chat.html",
                 titolo: "Accesso 19.11.1966"
             },
-            "immagineTrigger": { // Trigger per 08.11.1966
-                coordEst: "1005",                    
-                coordNord: "4509",                  
+            "immagineTrigger": { 
+                estInt: "100", estDec: "555",
+                nordInt: "4509", nordDec: "200",
                 pagina: "pagina_giorno_1.html",
                 titolo: "Accesso 22.11.1966"
             },
-            "immagineTrigger3": { // Trigger per [TOP SECRET]
-                coordEst: "9999",                    
-                coordNord: "9999",                  
+            "immagineTrigger3": { 
+                estInt: "999", estDec: "999",
+                nordInt: "9999", nordDec: "999",
                 pagina: "pagina_top_secret.html",
                 titolo: "Accesso Area [TOP SECRET]"
             }
         };
 
-        // --- 2. SELEZIONE DEGLI ELEMENTI HTML ---
+        // --- 2. ELEMENTI ---
         const modal = document.getElementById("modalLogin");
         const modalTitolo = modal.querySelector("h2"); 
         const closeBtn = document.querySelector(".chiudi-modal");
         const loginForm = document.getElementById("loginForm");
         const messaggioErrore = document.getElementById("messaggioErrore");
 
-        // --- 3. VARIABILE DI STATO ---
+        // Campi Input
+        const inpEstInt = document.getElementById("estInt");
+        const inpEstDec = document.getElementById("estDec");
+        const inpNordInt = document.getElementById("nordInt");
+        const inpNordDec = document.getElementById("nordDec");
+
+        // --- 3. GESTIONE AUTO-FOCUS (UX MIGLIORATA) ---
+        // Funzione per saltare al prossimo campo quando si raggiunge la lunghezza massima
+        function setupAutoTab(currentField, nextField) {
+            currentField.addEventListener('input', function() {
+                if (this.value.length >= this.maxLength) {
+                    nextField.focus();
+                }
+            });
+        }
+
+        // Collega i salti logici
+        setupAutoTab(inpEstInt, inpEstDec); // Est Intero -> Est Decimale
+        setupAutoTab(inpEstDec, inpNordInt); // Est Decimale -> Nord Intero
+        setupAutoTab(inpNordInt, inpNordDec); // Nord Intero -> Nord Decimale
+
+        // --- 4. LOGICA MODAL ---
         let triggerAttivo = null;
 
-        // --- 4. LOGICA PER APRIRE IL MODAL (DINAMICA) ---
         Object.keys(loginConfigs).forEach(triggerId => {
-            
             const triggerElement = document.getElementById(triggerId);
-            
             if (triggerElement) {
                 triggerElement.onclick = function(event) {
                     event.preventDefault(); 
-                    
-                    // 1. RICORDA quale trigger ha aperto il modal
                     triggerAttivo = triggerId; 
-                    
-                    // 2. PRENDI la configurazione giusta (password, pagina, titolo)
                     const config = loginConfigs[triggerAttivo];
                     
-                    // 3. AGGIORNA il titolo del modal dinamicamente
                     modalTitolo.textContent = config.titolo; 
-                    
-                    // 4. RESETTA e MOSTRA il modal
                     messaggioErrore.textContent = ""; 
                     loginForm.reset(); 
                     modal.style.display = "block";
+                    
+                    // Focus sul primo campo
+                    setTimeout(() => inpEstInt.focus(), 100);
                 }
             }
         });
 
-        // --- 5. LOGICA PER CHIUDERE IL MODAL (Invariata) ---
-        // Quando l'utente clicca sulla 'x', chiudi il modal
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
+        closeBtn.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
 
-        // Chiudi il modal anche se l'utente clicca fuori dalla finestra
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // --- 6. LOGICA PER IL SUBMIT (DINAMICA) ---
+        // --- 5. LOGICA SUBMIT ---
         loginForm.onsubmit = function(event) {
             event.preventDefault(); 
 
             if (!triggerAttivo) return; 
-
             const config = loginConfigs[triggerAttivo];
             
-            // Prendi i valori a 4 cifre inseriti dall'utente
-            const estInserito = document.getElementById("coordEstInput").value;
-            const nordInserito = document.getElementById("coordNordInput").value;
+            // Prendi valori
+            const eI = inpEstInt.value;
+            const eD = inpEstDec.value;
+            const nI = inpNordInt.value;
+            const nD = inpNordDec.value;
 
-            // CONFRONTA i valori a 4 cifre 
-            if (estInserito === config.coordEst && nordInserito === config.coordNord) {
-                // Se sono GIUSTE:
-                alert(`Connessione Stabilita.\nAccesso a CTR: ${config.coordEst}.000 (E) / ${config.coordNord}.000 (N)`);
+            // Confronta tutte le parti
+            if (eI === config.estInt && eD === config.estDec &&
+                nI === config.nordInt && nD === config.nordDec) {
+                
+                alert(`Connessione Stabilita.\nTarget Acquisito.`);
                 window.location.href = config.pagina;
             } else {
-                // Se sono SBAGLIATE:
-                messaggioErrore.textContent = "Coordinate di reticolo non valide. Riprova.";
+                messaggioErrore.innerHTML = `> ERRORE DI ALLINEAMENTO <br> Coordinate non valide.`;
+                
+                // Effetto scuotimento (opzionale, solo se supportato CSS)
+                loginForm.style.animation = "none";
+                setTimeout(() => loginForm.style.animation = "shake 0.5s", 10);
             }
         }
     </script>
+    
+    <style>
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
 
 </body>
 </html>
