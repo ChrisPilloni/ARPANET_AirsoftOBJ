@@ -54,13 +54,13 @@
             width: 100%;
             height: 100%;
             overflow: auto; 
-            background-color: rgba(0, 0, 0, 0.8); /* Sfondo un po' più scuro */
+            background-color: rgba(0, 0, 0, 0.8); 
         }
 
         .modal-contenuto {
             margin: 10% auto; 
-            width: 95%; /* Un po' più largo per far stare i nuovi input */
-            max-width: 600px; /* Aumentato max-width */
+            width: 95%; 
+            max-width: 600px; 
             background-color: #004d00; 
             border: 4px solid #00ff00; 
             border-radius: 0; 
@@ -108,41 +108,42 @@
         
         .input-gruppo {
             display: flex; 
-            align-items: center; /* Allinea verticalmente al centro */
+            align-items: center; 
             justify-content: flex-start;
-            gap: 5px; /* Spazio tra i pezzettini */
+            gap: 8px; 
         }
 
-        /* Stile base per tutti gli input delle coordinate */
         .coord-input {
             font-family: 'MGS_chat', monospace;
-            font-size: 1.3em;
-            background-color: #000;
+            font-size: 1.2em; 
+            background-color: #000000 !important; /* Nero puro forzato */
             color: #00ff00;
             border: 2px solid #00ff00;
             border-radius: 0;
-            padding: 8px;
-            text-align: center;
+            padding: 10px; 
+            text-align: center; 
             box-sizing: border-box;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .coord-input:focus {
             outline: none;
-            background-color: #051a05;
-            box-shadow: 0 0 10px #00ff00;
+            background-color: #000000; 
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); 
         }
 
         /* Dimensioni specifiche */
-        .w-3 { width: 70px; } /* Per input a 3 cifre */
-        .w-4 { width: 90px; } /* Per input a 4 cifre */
+        .w-2 { width: 60px; } /* NUOVO: Per input a 2 cifre */
+        .w-3 { width: 80px; } 
+        .w-4 { width: 100px; } 
 
-        /* Separatore (il punto) e lo Zero finale */
         .separatore, .suffisso-zero {
             font-family: 'MGS_chat', monospace;
             font-size: 1.5em;
             color: #00ff00;
             font-weight: bold;
-            padding-top: 5px; /* Piccolo adjust visivo */
+            text-shadow: 0 0 5px #00ff00;
         }
 
         #loginForm button {
@@ -171,7 +172,7 @@
             color: #ff0000 !important; 
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
             margin-top: 15px;
-            min-height: 1.2em; /* Evita saltelli se vuoto */
+            min-height: 1.2em; 
         }
 
     </style>
@@ -233,7 +234,7 @@
                     <div class="input-gruppo">
                         <input type="text" id="estInt" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
                         <span class="separatore">.</span>
-                        <input type="text" id="estDec" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
+                        <input type="text" id="estDec" class="coord-input w-2" maxlength="2" placeholder="XX" required>
                         <span class="suffisso-zero">0</span>
                     </div>
 
@@ -241,7 +242,7 @@
                     <div class="input-gruppo">
                         <input type="text" id="nordInt" class="coord-input w-4" maxlength="4" placeholder="YYYY" required>
                         <span class="separatore">.</span>
-                        <input type="text" id="nordDec" class="coord-input w-3" maxlength="3" placeholder="XXX" required>
+                        <input type="text" id="nordDec" class="coord-input w-2" maxlength="2" placeholder="XX" required>
                         <span class="suffisso-zero">0</span>
                     </div>
                     
@@ -255,29 +256,24 @@
 
 
     <script>
-        // --- 1. CONFIGURAZIONE ---
-        // Ho aggiornato i codici per adattarli al nuovo formato (Int + Dec)
-        // Esempio: Est: 220.500 -> estInt: "220", estDec: "50" (il terzo 0 è statico o parte dell'input?)
-        // Richiesta: "6 valori editabili divisi da un punto (3 e 3 editabili) più lo zero non editabile"
-        // Quindi Est Input totale = 6 cifre. Nord Input totale = 7 cifre.
-        
+        // --- 1. CONFIGURAZIONE AGGIORNATA ---
+        // Le password decimali ora sono di 2 cifre (es. "65" invece di "650")
         const loginConfigs = {
             "immagineTrigger2": { 
-                // Es. 220.500 0
-                estInt: "220", estDec: "500",
-                nordInt: "5008", nordDec: "100",
+                estInt: "126", estDec: "65",
+                nordInt: "6032", nordDec: "35",
                 pagina: "chat.html",
                 titolo: "Accesso 19.11.1966"
             },
             "immagineTrigger": { 
-                estInt: "100", estDec: "555",
-                nordInt: "4509", nordDec: "200",
+                estInt: "100", estDec: "55",
+                nordInt: "4509", nordDec: "20",
                 pagina: "pagina_giorno_1.html",
                 titolo: "Accesso 22.11.1966"
             },
             "immagineTrigger3": { 
-                estInt: "999", estDec: "999",
-                nordInt: "9999", nordDec: "999",
+                estInt: "470", estDec: "70",
+                nordInt: "4371", nordDec: "50",
                 pagina: "pagina_top_secret.html",
                 titolo: "Accesso Area [TOP SECRET]"
             }
@@ -290,14 +286,12 @@
         const loginForm = document.getElementById("loginForm");
         const messaggioErrore = document.getElementById("messaggioErrore");
 
-        // Campi Input
         const inpEstInt = document.getElementById("estInt");
         const inpEstDec = document.getElementById("estDec");
         const inpNordInt = document.getElementById("nordInt");
         const inpNordDec = document.getElementById("nordDec");
 
-        // --- 3. GESTIONE AUTO-FOCUS (UX MIGLIORATA) ---
-        // Funzione per saltare al prossimo campo quando si raggiunge la lunghezza massima
+        // --- 3. GESTIONE AUTO-FOCUS ---
         function setupAutoTab(currentField, nextField) {
             currentField.addEventListener('input', function() {
                 if (this.value.length >= this.maxLength) {
@@ -306,10 +300,9 @@
             });
         }
 
-        // Collega i salti logici
-        setupAutoTab(inpEstInt, inpEstDec); // Est Intero -> Est Decimale
-        setupAutoTab(inpEstDec, inpNordInt); // Est Decimale -> Nord Intero
-        setupAutoTab(inpNordInt, inpNordDec); // Nord Intero -> Nord Decimale
+        setupAutoTab(inpEstInt, inpEstDec); 
+        setupAutoTab(inpEstDec, inpNordInt); 
+        setupAutoTab(inpNordInt, inpNordDec); 
 
         // --- 4. LOGICA MODAL ---
         let triggerAttivo = null;
@@ -327,7 +320,6 @@
                     loginForm.reset(); 
                     modal.style.display = "block";
                     
-                    // Focus sul primo campo
                     setTimeout(() => inpEstInt.focus(), 100);
                 }
             }
@@ -343,13 +335,11 @@
             if (!triggerAttivo) return; 
             const config = loginConfigs[triggerAttivo];
             
-            // Prendi valori
             const eI = inpEstInt.value;
             const eD = inpEstDec.value;
             const nI = inpNordInt.value;
             const nD = inpNordDec.value;
 
-            // Confronta tutte le parti
             if (eI === config.estInt && eD === config.estDec &&
                 nI === config.nordInt && nD === config.nordDec) {
                 
@@ -357,8 +347,6 @@
                 window.location.href = config.pagina;
             } else {
                 messaggioErrore.innerHTML = `> ERRORE DI ALLINEAMENTO <br> Coordinate non valide.`;
-                
-                // Effetto scuotimento (opzionale, solo se supportato CSS)
                 loginForm.style.animation = "none";
                 setTimeout(() => loginForm.style.animation = "shake 0.5s", 10);
             }
